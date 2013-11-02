@@ -3,7 +3,7 @@ layout: post
 title: "Displaying MQTT messages in a browser in real time"
 description: ""
 category: "IoT"
-tags: [raspberrpi,mqtt,iot]
+tags: [raspberrypi mqtt iot]
 ---
 {% include JB/setup %}
 
@@ -17,20 +17,23 @@ MQTT brokers have a neat feature called bridging which allows one broker to publ
 
 So, its time to put all this together. As I mentioned, Mosquitto is ideal for running on low power devices and RabbitMQ is commercially supported and can be scaled to deal with millions of messages a second. After installing Mosquitto on my ARM device, I installed RabbitMQ on an EC2 instance, I then set up a bridge between the two, with Mosquitto sending every message it receives to RabbitMQ. Finally I created a web page that is able to display these messages to a user in real time.
 
-![System Overview](../assets/images/2013-11-02-comms_overview.png)
+![System Overview](/assets/images/2013-11-02-comms_overview.png)
 
 ## Setting up RabbitMQ
 
-See http://www.rabbitmq.com/download.html for instructions on how to install RabbitMQ. If you are deploying on EC2 or similar you will need to make sure the following ports are open:
+See [http://www.rabbitmq.com/download.html][7] for instructions on how to install RabbitMQ. If you are deploying on EC2 or similar you will need to make sure the following ports are open:
 
-Port  | Reason 
------:|---------
-22    | SSH access 
-5672  | Used to send/receive AMQP messages 
-1883  | Used to send/receive MQTT messages 
-15674 | Used to send/receive STOMP messages 
-15672 | *Optional* Used by the web management plug-in 
+<br />
 
+Port    | Reason 
+-------:|---------
+22      | SSH access 
+5672    | Used to send/receive AMQP messages 
+1883    | Used to send/receive MQTT messages 
+15674   | Used to send/receive STOMP messages 
+15672   | *Optional* Used by the web management plug-in 
+
+<br />
 
 Once installed we need to enable the MQTT and Web Stomp plugins. We do this by running
 
@@ -59,11 +62,11 @@ So, firstly we give our connection a name (every connection in a config file mus
 
     topic pattern [[[ out | in | both ] qos-level] local-prefix remote-prefix]
 
-So we have set our pattern to '#' which in MQTT means everything (think posix '*'), we have specified we want communication to be two way, 'both', our QOS level is set to 0, and we are mapping everything sent to the local 'sensor/' topic, to the remote 'sensor/jons-house' topic.
+So we have set our pattern to '#' which in MQTT means everything (think posix '\*'), we have specified we want communication to be two way, 'both', our QOS level is set to 0, and we are mapping everything sent to the local 'sensor/' topic, to the remote 'sensor/jons-house' topic.
 
 Now, lets test our set up so far using the Mosquitto command line tools. In one terminal window on the Raspberry Pi we will subscribe to the topic on the RabbitMQ host (you can do this from any machine and you should see the same result):
 
-> $ mosquitto_sub -h \<rabbitmq-url> -t topic/sensor/jons-house/#
+> $ mosquitto_sub -h &lt;rabbitmq-url&gt; -t topic/sensor/jons-house/#
 
 'topic' is the name of the exchange used by default on RabbitMQ.
 
@@ -108,10 +111,10 @@ And the Javascript used to communicate with RabbitMQ, app.js:
     var username = "guest",
         password = "guest",
         vhost    = "/",
-        url      = 'http://' + '<broker-url>' + ':15674/stomp',
+        url      = 'http://' + '<rabbitmq-url>' + ':15674/stomp',
         queue    = "/topic/sensor.jons-house.#"; // To translate mqtt topics to
-        										 // stomp we change slashes 
-        										 // to dots
+        					     // stomp we change slashes 
+        					     // to dots
     var console;
 
     function on_connect() {
@@ -155,7 +158,7 @@ You can then serve up the page using a web server or if you don't have one insta
 If you now open localhost:8000 in your browser you should be able to see any message you send using the mosquitto_pub tool.
 
 
-![Screenshot of Browser and Terminal](../assets/images/2013-11-02-mqtt_stomp_screenshot.png)
+![Screenshot of Browser and Terminal](/assets/images/2013-11-02-mqtt_stomp_screenshot.png)
 
 [1]: http://www.eclipse.org/paho/ "Eclipse Paho"
 [2]: http://www.hivemq.com/ "HiveMQ"
@@ -163,3 +166,4 @@ If you now open localhost:8000 in your browser you should be able to see any mes
 [4]: http://www.rabbitmq.com/ "RabbitMQ"
 [5]: http://mosquitto.org/man/mosquitto-conf-5.html "Mosquitto.conf Man Page"
 [6]: https://github.com/jmesnil/stomp-websocket/ "Stomp Websockets"
+[7]: http://www.rabbitmq.com/download.html "RabbitMQ Download"
