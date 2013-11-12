@@ -3,7 +3,7 @@ layout: post
 title: "Displaying MQTT messages in a browser in real time"
 description: ""
 category: "IoT"
-tags: [raspberrypi mqtt iot]
+tags: [raspberrypi, mqtt, iot]
 ---
 {% include JB/setup %}
 
