@@ -1,8 +1,8 @@
 ---
 layout: post
-    title: "My Clojure Scratchpad"
+title: "My Clojure Scratchpad"
 description: ""
-category: "clojure"
+category: clojure
 tags: [clojure, tips]
 ---
 {% include JB/setup %}
@@ -10,13 +10,10 @@ tags: [clojure, tips]
 When I want to do a quick calculation or perform a few one off commands that are
 beyond my bash knowledge I normally reach for Python. My work flow is
 
-> $ workon scratch
-
-> $ ipython
-
-> \>>> !pip install pkg # if required
-
-> \>>> import pkg
+    $ workon scratch
+    $ ipython
+    >>> !pip install pkg # if required
+    >>> import pkg
 
 The reason I still reflexively go for Python is mostly down to start up time (and
 how easy it is to manage environments using virtualenv and pip). I wanted to see
@@ -29,27 +26,27 @@ Firstly, environment management in Clojure work very differently to Python so to
 quickly jump to a folder containing a Leiningen scratch project I figured my best
 bet is bash. First create a project you plan to use as your scratch pad.
 
-> $ lein new scratch
+    $ lein new scratch
 
 The next thing to tackle is the start up time of the repl. Install grench using
 the instructions on its [homepage][1] and create a ~/.nrepl-port file containing a
 port number which also needs to be added to the scratch project.clj file. So put
 
-> 17652
+    17652
 
 into ~/.nrepl-port and add
 
-> :repl-options {:port 17652} 
+    :repl-options {:port 17652} 
 
 to the project.clj
 
 Now if you run 
 
-> $ lein trampoline repl
+    $ lein trampoline repl
 
 in one terminal window running
 
-> $ grench repl
+    $ grench repl
 
 in another should start a clojure repl immediately.
 
@@ -59,17 +56,16 @@ Being able to add packages automatically to a virtualenv in iPython is very
 useful, to emulate this behaviour in a clojure repl we can use leiningen and
 lein-exec. First add
 
-> [lein-exec "0.3.1"]
-
-> [leiningen "2.3.3"]]
+    [lein-exec "0.3.1"]
+    [leiningen "2.3.3"]]
 
 to the scratch project.clj *:dependencies* and then run
 
-> $ lein deps
+    $ lein deps
 
 to download them. Now, restart the repl you created earlier and run 
 
-> $ grench repl
+    $ grench repl
 
 again to open a repl. We can now install dependencies and use them from the repl
 
