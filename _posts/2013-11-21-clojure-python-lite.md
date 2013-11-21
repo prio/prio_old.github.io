@@ -2,7 +2,7 @@
 layout: post
 title: "Clojure-py lite"
 description: "Alternative to Clojure on the cPython runtime"
-category: "software"
+category: "python"
 tags: [clojure python hy]
 ---
 {% include JB/setup %}
