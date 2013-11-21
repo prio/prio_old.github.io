@@ -170,38 +170,20 @@ and does not let us group functions together like protocols.
 => (defclass aeroplane [object])
 => (with-decorator singledispatch (defn fly [arg] (print "I fly")))
 => (with-decorator (fly.register bird) (defn _ [self] (print "I fly by flapping")))
-=> (with-decorator (fly.register aeroplane) (defn _ fly [self] (print "I fly using engines")))
-...HyCompileError: Internal Compiler Bug...
-{% endhighlight %}
-
-Oh dear. The corresponding code in Python:
-
-{% highlight python %}
->>> from singledispatch import singledispatch
->>> class bird(object): pass
->>> class aeroplane(object): pass
->>> @singledispatch
-... def fly(arg): print "I fly"
->>> @fly.register(bird)
-... def _(self): print "I fly by flapping"
->>> @fly.register(aeroplane)
-... def _(self): print "I fly using engines"
->>> fly(1)
+=> (with-decorator (fly.register aeroplane) (defn _ [self] (print "I fly using engines")))
+=> (fly 1)
 I fly
->>> fly(bird())
+=> (fly (bird))
 I fly by flapping
->>> fly(aeroplane())
+=> (fly (aeroplane))
 I fly using engines
 {% endhighlight %}
 
-Works fine. Time to create a bug report I think.
+singledispath is not as powerful as protocols in the broader
+sense. However it is part of the stdlib from 3.4 onwards and it lets
+us write polymorphic functions in Hy which is what I was looking for.
 
-Even if I got it working, singledispath is not even very similar to
-protocols in the broader sense. However it is part of the stdlib from 3.4
-onwards and it lets us write polymorphic functions in Hy which is what I
-was looking for.
-
-Verdict: 0/10 (until I get it working)
+Verdict: 8/10
 
 ## Recap
 
