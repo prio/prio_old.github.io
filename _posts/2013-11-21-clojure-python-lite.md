@@ -1,25 +1,25 @@
 ---
 layout: post
 title: "Clojure-py lite"
-description: ""
-category: ""
-tags: []
+description: "Alternative to Clojure on the cPython runtime"
+category: "software"
+tags: [clojure python hy]
 ---
 {% include JB/setup %}
 
 ## Background
 
 I have been tracking the progress of [clojure-py][1] on and off for
-the past two years or so but unfurtunately it has officially been
+the past two years or so but unfortunately it has officially been
 [dropped by its current maintainer][2]. I know node.js and
 Clojurescript are Clojures "de-facto" scripting solution but I am more
-familar with the Python ecosystem so I was looking forward to being
+familiar with the Python ecosystem so I was looking forward to being
 able to use the libraries I know with Clojure. However, on the
 clojure-py mailing list [Hy][3] was mentioned as a possible
 alternative so I decided to take a look at Hy and see how close we can
 get to a Clojure "like" environment on cPython. _Note:_ I am not
 suggesting anyone use this setup for serious systems, its just a
-fun excercise.
+fun exercise.
 
 ## Clojure features
 
@@ -28,15 +28,15 @@ of the ones I use most often and I would like to have something
 similar on the cPython platform.
 
 * REPL
-* Standard fucntional and Lisp functions/constructs
+* Standard functional and Lisp functions/constructs
 * Host interop
-* Persistent data strucutres
+* Persistent data structures
 * Protocols
 * Concurrency constructs: Atoms, Futures, Threads, Refs, Agents
 * Laziness
-* Clojure niceites: threading macros, 
+* Clojure niceties: threading macros, 
 * Macros
-* Metadata
+* Meta data
 * _Bonus_ Although not a language feature something like the awesome
   core.async library would be a clincher
 
@@ -84,7 +84,7 @@ Lisp. Lets try out some of the basic functions we expect.
 {% endhighlight %}
 
 Ah, OK, take and filter are lazy and return a Python
-generator. Everything works as expected so far. There is also a thrird
+generator. Everything works as expected so far. There is also a third
 party Python library called [toolz][4] whose aim is to build on the
 functions available in the Python functools and itertools modules. It
 is heavily influenced by Clojure, "the toolz project generally adheres
@@ -120,7 +120,7 @@ Verdict: 9/10
 
 This is a big Clojure advantage, but since Hy is built on Python we
 are stuck with Pythons mutable data structures by default. There seems
-to be two thrid party libraries that provide basic persisten data
+to be two third party libraries that provide basic persistent data
 structures to Python, [pysistence][5] and [pyrsistent][6]. Pysistence
 has an experimental C module so it may be more performant but it
 doesn't seem to be actively maintained. Pysistence was recently
@@ -150,18 +150,18 @@ this setup for non-production scripts, performance isn't a deal breaker for me.
 
 Pyrsistent gives us persistent data structures but because its a third
 party library we lose literal syntax and constructing a map is
-unwieldly.
+unwieldy.
 
 Verdict: 5/10
 
 ## Protocols
 
-Protocols are a fundemental abstraction in Clojure and allow one to
+Protocols are a fundamental abstraction in Clojure and allow one to
 write performant polymorphic functions. As part of this setup I am
 just looking for something to provide me with a way to write
-polymorphoc functions of my own (performance not a concer). As luck
+polymorphic functions of my own (performance not a concern). As luck
 would have it [PEP 443][7] was recently approved and, a version of it
-has been [backported to Python 2.7][8]. Singledispatch is a decorator
+has been [back-ported to Python 2.7][8]. Singledispatch is a decorator
 and does not let us group functions together like protocols.
 
 {% highlight clojure %}
