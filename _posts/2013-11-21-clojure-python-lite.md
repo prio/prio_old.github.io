@@ -149,8 +149,8 @@ this setup for non-production scripts, performance isn't a deal breaker for me.
 {% endhighlight %}
 
 Pyrsistent gives us persistent data structures but because its a third
-party library we lose literal syntax and constructing a map is
-unwieldy.
+party library we lose literal syntax (constructing a map is
+unwieldy) and it is a very young project.
 
 Verdict: 5/10
 
@@ -185,10 +185,10 @@ us write polymorphic functions in Hy which is what I was looking for.
 
 Verdict: 8/10
 
-## Recap
+## Next
 
-Ok, this post is already longer than I was expecting and I am only
-half way there. I will finish the investigation in my next post.
+Ok, this post is already longer than I was expecting and I am not
+finished yet. I will finish the investigation in my next post.
 
 
 [1]: https://github.com/halgari/clojure-py "Clojure-py"
